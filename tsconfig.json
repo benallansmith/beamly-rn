@@ -18,7 +18,9 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@screens/*": ["./src/screens/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
