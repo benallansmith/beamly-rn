@@ -1,4 +1,10 @@
 {
-  "name": "beamly",
-  "displayName": "beamly"
+  "expo": {
+    "name": "beamly",
+    "slug": "beamly",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }
