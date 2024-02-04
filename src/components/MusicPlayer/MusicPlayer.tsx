@@ -4,6 +4,7 @@ import { useTheme } from "@contexts/ThemeContext";
 import MusicControls from "@components/MusicControls";
 import MusicCard from "@components/MusicCard";
 import Dropdown from "@components/Dropdown";
+import DebugInfo from "@components/DebugInfo";
 
 const genres = ["Lo-Fi", "Instrumental", "Ambient", "Classical", "House"];
 
@@ -21,6 +22,7 @@ export const MusicPlayer = () => {
         </View>
         <MusicCard />
         <MusicControls />
+        <DebugInfo />
       </View>
     </View>
   );

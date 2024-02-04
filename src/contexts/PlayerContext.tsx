@@ -15,12 +15,28 @@ type PlayerContextType = {
   setPlaylist: (playlist: PlaylistSummary) => void;
   playlistIndex: number;
   setPlaylistIndex: (index: number) => void;
+  tracks: TrackSummary[];
+  setTracks: (tracks: TrackSummary[]) => void;
   track: TrackSummary | null;
   setTrack: (track: TrackSummary) => void;
   nextTrackRoute: string;
   setNextTrackRoute: (route: string) => void;
   previousTrackRoute: string;
   setPreviousTrackRoute: (route: string) => void;
+  sound: Sound | null;
+  setSound: (sound: Sound) => void;
+  isLoaded: boolean;
+  setIsLoaded: (isLoaded: boolean) => void;
+  isPlaying: boolean;
+  setIsPlaying: (isPlaying: boolean) => void;
+  isPaused: boolean;
+  setIsPaused: (isPaused: boolean) => void;
+  trackLength: number;
+  setTrackLength: (trackLength: number) => void;
+  trackPosition: number;
+  setTrackPosition: (trackPosition: number) => void;
+  sliderValue: number;
+  setSliderValue: (sliderValue: number) => void;
 };
 
 // Create a context for the genre selection
@@ -33,12 +49,28 @@ const PlayerContext = createContext<PlayerContextType>({
   setPlaylist: () => {},
   playlistIndex: 0,
   setPlaylistIndex: () => {},
+  tracks: [],
+  setTracks: () => {},
   track: null,
   setTrack: () => {},
   nextTrackRoute: "",
   setNextTrackRoute: () => {},
   previousTrackRoute: "",
-  setPreviousTrackRoute: () => {}
+  setPreviousTrackRoute: () => {},
+  sound: null,
+  setSound: () => {},
+  isLoaded: false,
+  setIsLoaded: () => {},
+  isPlaying: false,
+  setIsPlaying: () => {},
+  isPaused: false,
+  setIsPaused: () => {},
+  trackLength: 0,
+  setTrackLength: () => {},
+  trackPosition: 0,
+  setTrackPosition: () => {},
+  sliderValue: 0,
+  setSliderValue: () => {}
 });
 
 // Provider component
@@ -46,10 +78,21 @@ export const PlayerProvider = ({ children }: { children: React.ReactNode }) => {
   const [host, setHost] = useState<string>("");
   const [playlist, setPlaylist] = useState<PlaylistSummary | null>(null);
   const [track, setTrack] = useState<TrackSummary | null>(null);
+  const [tracks, setTracks] = useState<TrackSummary[]>([]);
   const [nextTrackRoute, setNextTrackRoute] = useState<string>("");
   const [previousTrackRoute, setPreviousTrackRoute] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<Genre>("lo-fi");
   const [playlistIndex, setPlaylistIndex] = useState<number>(0);
+
+  const [sound, setSound] = useState<Sound | null>(null);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const [trackLength, setTrackLength] = useState(0);
+  const [trackPosition, setTrackPosition] = useState(0);
+  const [sliderValue, setSliderValue] = useState(0);
 
   useEffect(() => {
     getAudiusHost().then((response) => setHost(response));
@@ -57,23 +100,22 @@ export const PlayerProvider = ({ children }: { children: React.ReactNode }) => {
 
   const fetchPlaylists = async () => {
     fetchAudiusPlaylists(selectedGenre).then(async (playlists) => {
-      setPlaylist(playlists[0]);
+      const tempPlaylistIndex = 0;
+      setPlaylistIndex(tempPlaylistIndex);
 
-      const tracks: TrackSummary[] = await fetchAudiusPlaylistTracks(playlists[0].id);
-      setTrack(tracks[playlistIndex]);
+      const tempPlaylist = playlists[0];
+      setPlaylist(tempPlaylist);
 
-      // const tracks = playlists[0].tracks;
-      const trackIndex = 0;
-      const tempNextTrackRoute = getNextTrackRoute(selectedGenre, playlists, 0, tracks, trackIndex);
+      const tempTracks: TrackSummary[] = await fetchAudiusPlaylistTracks(tempPlaylist.id);
+      setTracks(tempTracks);
+
+      const tempTrack = tempTracks[tempPlaylistIndex];
+      setTrack(tempTrack);
+
+      const tempNextTrackRoute = getNextTrackRoute(selectedGenre, playlists, 0, tempTracks, 0);
       setNextTrackRoute(tempNextTrackRoute);
 
-      const tempPreviousTrackRoute = getNextTrackRoute(
-        selectedGenre,
-        playlists,
-        0,
-        tracks,
-        trackIndex
-      );
+      const tempPreviousTrackRoute = getNextTrackRoute(selectedGenre, playlists, 0, tempTracks, 0);
       setPreviousTrackRoute(tempPreviousTrackRoute);
     });
   };
@@ -95,12 +137,28 @@ export const PlayerProvider = ({ children }: { children: React.ReactNode }) => {
         setPlaylist,
         playlistIndex,
         setPlaylistIndex,
+        tracks,
+        setTracks,
         track,
         setTrack,
         nextTrackRoute,
         setNextTrackRoute,
         previousTrackRoute,
-        setPreviousTrackRoute
+        setPreviousTrackRoute,
+        sound,
+        setSound,
+        isLoaded,
+        setIsLoaded,
+        isPlaying,
+        setIsPlaying,
+        isPaused,
+        setIsPaused,
+        trackLength,
+        setTrackLength,
+        trackPosition,
+        setTrackPosition,
+        sliderValue,
+        setSliderValue
       }}>
       {children}
     </PlayerContext.Provider>
@@ -118,69 +176,122 @@ export const usePlayer = () => {
     setPlaylist,
     playlistIndex,
     setPlaylistIndex,
+    tracks,
     track,
     setTrack,
     nextTrackRoute,
     setNextTrackRoute,
     previousTrackRoute,
-    setPreviousTrackRoute
+    setPreviousTrackRoute,
+    sound,
+    setSound,
+    isLoaded,
+    setIsLoaded,
+    isPlaying,
+    setIsPlaying,
+    isPaused,
+    setIsPaused,
+    trackLength,
+    setTrackLength,
+    trackPosition,
+    setTrackPosition,
+    sliderValue,
+    setSliderValue
   } = useContext(PlayerContext);
 
-  const [sound, setSound] = useState<Sound | null>(null);
-  const [userClickedPlay, setUserClickedPlay] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isWaiting, setIsWaiting] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sliderValue, setSliderValue] = useState(0);
-  const [audioLoading, setAudioLoading] = useState(false);
-
   // Initialize audio
-  const initAudio = async () => {
+  const createAudioObject = async () => {
     if (!host || !track?.id) return;
 
-    setAudioLoading(true);
-    const soundObject = await Audio.Sound.createAsync(
+    setIsLoaded(false);
+    setIsPlaying(true);
+    if (sound) {
+      await sound.pauseAsync();
+      await sound.unloadAsync();
+    }
+
+    const audioObject = await Audio.Sound.createAsync(
       { uri: `${host}/v1/tracks/${track.id}/stream` },
-      { shouldPlay: false }
+      { shouldPlay: isPaused }
     );
-    setAudioLoading(false);
-    setSound(soundObject.sound);
+
+    const tempStatus = await audioObject.sound.getStatusAsync();
+    // @ts-ignore
+    const tempTrackLength = tempStatus.durationMillis;
+    setTrackLength(tempTrackLength);
+
+    audioObject.sound.setOnPlaybackStatusUpdate((status) => {
+      setIsLoaded(status.isLoaded);
+      // @ts-ignore
+      setIsPlaying(isPaused ? false : status.isPlaying);
+
+      // @ts-ignore
+      if (status?.positionMillis) {
+        // @ts-ignore
+        const tempPosition = status.positionMillis;
+        setTrackPosition(tempPosition);
+
+        const currentPercentage = Number(((tempPosition / tempTrackLength) * 100).toFixed(1));
+        console.log("Current percentage", currentPercentage);
+        if (
+          currentPercentage !== sliderValue &&
+          currentPercentage >= 0 &&
+          currentPercentage <= 100
+        ) {
+          setSliderValue(currentPercentage);
+        }
+      }
+    });
+
+    setSound(audioObject.sound);
+  };
+
+  const setPosition = async (percentage: number) => {
+    if (percentage < 0 || percentage > 100 || !isLoaded) return;
+
+    const position = (percentage / 100) * trackLength;
+    console.log("setPosition", position);
+    // if (sound) await sound.setPositionAsync(position);
   };
 
   // Play audio
   const play = async () => {
-    if (!host || !track?.id) return;
-
-    setUserClickedPlay(true);
-    if (sound) {
-      await sound.playAsync();
-    }
+    setIsPaused(false);
+    if (sound) await sound.playAsync();
   };
 
   // Pause audio
   const pause = async () => {
-    if (!host || !track?.id) return;
-
-    setUserClickedPlay(false);
-    if (sound) {
-      await sound.pauseAsync();
-    }
+    setIsPaused(true);
+    if (sound) await sound.pauseAsync();
   };
 
-  // Next track in playlist
-  //   const nextTrack = async () => {
-  //       if (!host || !playlist || !track?.id) return;
-  //
-  //       const tracks = playlist.tracks;
-  //       const nextIndex = (playlistIndex + 1) % tracks.length;
-  //       setPlaylistIndex(nextIndex);
-  //       setTrack(tracks[nextIndex]);
-  //   };
+  const nextTrack = async () => {
+    if (!tracks.length) return;
+
+    const tempPlaylistIndex = playlistIndex + 1;
+    setPlaylistIndex(tempPlaylistIndex);
+
+    setTrack(tracks[tempPlaylistIndex]);
+  };
+
+  const prevTrack = async () => {
+    if (!tracks.length) return;
+
+    // Calculate the new index, wrapping around to the last track if necessary
+    const tempPlaylistIndex = (playlistIndex - 1 + tracks.length) % tracks.length;
+
+    // Update the playlist index with the new value
+    setPlaylistIndex(tempPlaylistIndex);
+
+    // Update the current track based on the new playlist index
+    setTrack(tracks[tempPlaylistIndex]);
+  };
 
   useEffect(() => {
     if (!host || !track?.id) return;
 
-    initAudio();
+    createAudioObject();
 
     return () => {
       sound && sound.unloadAsync();
@@ -202,11 +313,14 @@ export const usePlayer = () => {
     setNextTrackRoute,
     previousTrackRoute,
     setPreviousTrackRoute,
-    userClickedPlay,
-    isWaiting,
+    isLoaded,
+    isPlaying,
     sliderValue,
+    setPosition,
     play,
     pause,
-    audioLoading
+    nextTrack,
+    trackPosition,
+    prevTrack
   };
 };
