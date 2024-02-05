@@ -1285,10 +1285,10 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@expo/cli@0.17.4":
-  version "0.17.4"
-  resolved "https://registry.yarnpkg.com/@expo/cli/-/cli-0.17.4.tgz#ac720bc03e16cc9f4130b4319118053743b50395"
-  integrity sha512-6pswecVC9qCBp1qa004D2HjPeXKYDaw/PhyUOsqnF7AUCwunlKa1tJO0Ik8zxzF68kuywIOXUnTJl74Z2aHqiw==
+"@expo/cli@0.17.3":
+  version "0.17.3"
+  resolved "https://registry.yarnpkg.com/@expo/cli/-/cli-0.17.3.tgz#0763696671522062e5592411d02952ed905d4838"
+  integrity sha512-lIK8igsEQxTh4WuDlcEhE0wAJcDrAyjWDF00phdmwuSCpE5SaEXNlddOXvGxEVKPhUxHZUFo9NbfoQC+JVmkfA==
   dependencies:
     "@babel/runtime" "^7.20.0"
     "@expo/code-signing-certificates" "0.0.5"
@@ -2341,10 +2341,10 @@
   resolved "https://registry.yarnpkg.com/@react-native/normalize-colors/-/normalize-colors-0.73.2.tgz#cc8e48fbae2bbfff53e12f209369e8d2e4cf34ec"
   integrity sha512-bRBcb2T+I88aG74LMVHaKms2p/T8aQd8+BZ7LuuzXlRfog1bMWWn/C5i0HVuvW4RPtXQYgIlGiXVDy9Ir1So/w==
 
-"@react-native/typescript-config@^0.74.0":
-  version "0.74.0"
-  resolved "https://registry.yarnpkg.com/@react-native/typescript-config/-/typescript-config-0.74.0.tgz#cb2cb58e4e424593c4ff5859e50d24dd54b14a63"
-  integrity sha512-Nt7AkbuLXIfoWmUrlTp06UTUj6LrMhwJhf/ReEHVpiaVJRjuqfjmwelvW/6dGSJjPFtYvziC+iaLLeyv2oBV7w==
+"@react-native/typescript-config@0.73.1":
+  version "0.73.1"
+  resolved "https://registry.yarnpkg.com/@react-native/typescript-config/-/typescript-config-0.73.1.tgz#c97a42f5cd264069bfe86b737c531ed2f042ae6d"
+  integrity sha512-7Wrmdp972ZO7xvDid+xRGtvX6xz47cpGj7Y7VKlUhSVFFqbOGfB5WCpY1vMr6R/fjl+Og2fRw+TETN2+JnJi0w==
 
 "@react-native/virtualized-lists@0.73.4":
   version "0.73.4"
@@ -2892,12 +2892,12 @@ argparse@^2.0.1:
   integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
 array-buffer-byte-length@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/array-buffer-byte-length/-/array-buffer-byte-length-1.0.0.tgz#fabe8bc193fea865f317fe7807085ee0dee5aead"
-  integrity sha512-LPuwb2P+NrQw3XhxGc36+XSvuBPopovXYTR9Ew++Du9Yb/bx5AzBfrIsBoj0EZUifjQU+sHL21sseZ3jerWO/A==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/array-buffer-byte-length/-/array-buffer-byte-length-1.0.1.tgz#1e5583ec16763540a27ae52eed99ff899223568f"
+  integrity sha512-ahC5W1xgou+KTXix4sAO8Ki12Q+jf4i0+tmk3sC+zgcynshkHxzpXdImBehiUYKKKDwvfFiJl1tZt6ewscS1Mg==
   dependencies:
-    call-bind "^1.0.2"
-    is-array-buffer "^3.0.1"
+    call-bind "^1.0.5"
+    is-array-buffer "^3.0.4"
 
 array-includes@^3.1.6:
   version "3.1.7"
@@ -4166,6 +4166,11 @@ es-abstract@^1.22.1:
     unbox-primitive "^1.0.2"
     which-typed-array "^1.1.13"
 
+es-errors@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/es-errors/-/es-errors-1.0.0.tgz#1936450fb8cff7bffb969335d0e55dfca7279aab"
+  integrity sha512-yHV74THqMJUyFKkHyN7hyENcEZM3Dj2a2IrdClY+IT4BFQHkIVwlh8s6uZfjsFydMdNHv0F5mWgAA3ajFbsvVQ==
+
 es-iterator-helpers@^1.0.12:
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/es-iterator-helpers/-/es-iterator-helpers-1.0.15.tgz#bd81d275ac766431d19305923707c3efd9f1ae40"
@@ -4501,7 +4506,7 @@ expo-asset@~9.0.2:
     invariant "^2.2.4"
     md5-file "^3.2.3"
 
-expo-av@~13.10.4:
+expo-av@^13.10.4:
   version "13.10.4"
   resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-13.10.4.tgz#04e549240e513753971dbeef323457e6fa30a60a"
   integrity sha512-Qlj+ILJ8wVK7J8DT9e6B1FyIcI3kM0iPhgmt7vnSqAWAbexOJRK7IP3MlKqKvHAhwm2OxIU3qJkShF7hvk20xA==
@@ -4549,18 +4554,13 @@ expo-modules-core@1.11.8:
   dependencies:
     invariant "^2.2.4"
 
-expo-status-bar@~1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.11.1.tgz#a11318741d361048c11db2b16c4364a79a74af30"
-  integrity sha512-ddQEtCOgYHTLlFUe/yH67dDBIoct5VIULthyT3LRJbEwdpzAgueKsX2FYK02ldh440V87PWKCamh7R9evk1rrg==
-
-expo@~50.0.5:
-  version "50.0.5"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.5.tgz#16c13eca981990fce2c884e974885935aca74da8"
-  integrity sha512-gfZbJv8eqVG1xX8QqlQHF4Mn6HnLFuE14Kq5FRUVZQWE+IhlrP+mr+un7Zdp/3a63Bp/VkPzHi77G1bVP1pM7A==
+expo@^50.0.0:
+  version "50.0.4"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.4.tgz#3ec5349a58b8b3264bc2f218d85b673beb352a99"
+  integrity sha512-8QWBvYZyKFd7pHxbtri8/ZITBR19QbrW2IkezAhs3ZOHR2kluSgNfyo9ojAe7GnOnE8hCB6Xe83Dbm0R3Ealhw==
   dependencies:
     "@babel/runtime" "^7.20.0"
-    "@expo/cli" "0.17.4"
+    "@expo/cli" "0.17.3"
     "@expo/config" "8.5.4"
     "@expo/config-plugins" "7.8.4"
     "@expo/metro-config" "0.17.3"
@@ -4881,10 +4881,11 @@ get-caller-file@^2.0.1, get-caller-file@^2.0.5:
   integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
 
 get-intrinsic@^1.0.2, get-intrinsic@^1.1.1, get-intrinsic@^1.1.3, get-intrinsic@^1.2.1, get-intrinsic@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.2.2.tgz#281b7622971123e1ef4b3c90fd7539306da93f3b"
-  integrity sha512-0gSo4ml/0j98Y3lngkFEot/zhiCeWsbYIlZ+uZOVgzLyLaUw7wxUL+nCTP0XJvJg1AXulJRI3UJi8GsbDuxdGA==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/get-intrinsic/-/get-intrinsic-1.2.3.tgz#9d2d284a238e62672f556361e7d4e1a4686ae50e"
+  integrity sha512-JIcZczvcMVE7AUOP+X72bh8HqHBRxFdz5PDHYtNG/lE3yk9b3KZBJlwFcTyPYjg3L4RLLmZJzvjxhaZVapxFrQ==
   dependencies:
+    es-errors "^1.0.0"
     function-bind "^1.1.2"
     has-proto "^1.0.1"
     has-symbols "^1.0.3"
@@ -5289,10 +5290,10 @@ ipaddr.js@^1.9.0:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
-is-array-buffer@^3.0.1, is-array-buffer@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/is-array-buffer/-/is-array-buffer-3.0.3.tgz#96e256e36f2861d87464ecb2b0875dddec7d4fdf"
-  integrity sha512-4uU8qe5vJcW6tiP6HfaXsXPDN9pkcrp8DBCrvCkHQS08xeDEdLNbshLfIydPf3x7VDtGYKad/GkX3ujNfgxPaw==
+is-array-buffer@^3.0.2, is-array-buffer@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/is-array-buffer/-/is-array-buffer-3.0.4.tgz#7a1f92b3d61edd2bc65d24f130530ea93d7fae98"
+  integrity sha512-wcjaerHw0ydZwfhiKbXJWLDY8A7yV7KhjQOpb83hGgGfId/aQa4TOvwyzn2PuswW2gPCYEL/nEAiSVpdOj1lXw==
   dependencies:
     call-bind "^1.0.2"
     get-intrinsic "^1.2.1"
@@ -7441,7 +7442,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.4.1:
+prettier@2.8.8:
   version "2.8.8"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.8.tgz#e8c5d7e98a4305ffe3de2e1fc4aca1a71c28b1da"
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
