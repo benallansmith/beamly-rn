@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from "react";
-import { useColorScheme } from "react-native";
 
 // Create a context for the theme
 const ThemeContext = createContext({
@@ -12,7 +11,8 @@ export const useTheme = () => useContext(ThemeContext);
 
 // Create a provider component
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === "dark");
+  // const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === "dark");
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Function to toggle the theme
   const toggleTheme = () => {

@@ -1,37 +1,52 @@
 import React, { useState } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { Menu } from "react-native-paper";
-import { usePlayer } from "@contexts/PlayerContext.tsx";
+import { View } from "react-native";
+import { Genre } from "../../types";
+import DropDownPicker from "react-native-dropdown-picker";
 
-export const Dropdown = ({ options }: { options: string[] }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { selectedGenre, setSelectedGenre } = usePlayer();
+const customDark = require("../../theme/Dropdown/themes/custom-dark");
+const customLight = require("../../theme/Dropdown/themes/custom-light");
+DropDownPicker.addTheme("custom-dark", customDark);
+DropDownPicker.addTheme("custom-light", customLight);
 
-  const openMenu = () => setIsOpen(true);
-
-  const closeMenu = () => setIsOpen(false);
+const Dropdown = ({
+  theme,
+  selectedGenre,
+  setSelectedGenre
+}: {
+  theme: "custom-dark" | "custom-light";
+  selectedGenre: Genre;
+  setSelectedGenre: (genre: Genre) => void;
+}) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(selectedGenre);
+  const [items, setItems] = useState([
+    { label: "Lo-Fi", value: "lo-fi" },
+    { label: "Instrumental", value: "instrumental" },
+    { label: "Ambient", value: "ambient" },
+    { label: "Classical", value: "classical" },
+    { label: "House", value: "house" }
+  ]);
 
   const handleSelect = (option: string) => {
-    setSelectedGenre(option);
-    closeMenu();
+    setSelectedGenre(option as Genre);
+    setValue(option as Genre);
   };
 
   return (
-    <View className="w-42">
-      <Menu
-        visible={isOpen}
-        onDismiss={closeMenu}
-        anchor={
-          <TouchableOpacity onPress={openMenu} className="w-42 bg-black p-2.5 rounded">
-            <Text className="w-42 text-white text-center">{selectedGenre}</Text>
-          </TouchableOpacity>
-        }>
-        <FlatList
-          data={options}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => <Menu.Item onPress={() => handleSelect(item)} title={item} />}
-        />
-      </Menu>
+    <View className="w-36 z-10 mb-4">
+      <DropDownPicker
+        // @ts-ignore
+        theme={theme}
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        // @ts-ignore
+        setValue={handleSelect}
+        setItems={setItems}
+      />
     </View>
   );
 };
+
+export default Dropdown;

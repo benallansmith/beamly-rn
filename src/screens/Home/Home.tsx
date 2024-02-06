@@ -4,9 +4,9 @@ import Header from "@components/Header";
 import MusicPlayer from "@components/MusicPlayer";
 import { useTheme } from "@contexts/ThemeContext";
 
-export const Home = () => {
+const Home = () => {
   const { isDarkMode } = useTheme();
-  const containerStyle = isDarkMode ? "bg-gray-900" : "bg-white";
+  const containerStyle = isDarkMode ? "bg-zinc-900" : "bg-white";
 
   return (
     <SafeAreaView className={`${containerStyle} h-full`}>
@@ -15,3 +15,5 @@ export const Home = () => {
     </SafeAreaView>
   );
 };
+
+export default Home;

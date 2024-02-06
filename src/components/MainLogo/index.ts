@@ -1,3 +1,3 @@
-import { MainLogo } from "./MainLogo";
+import MainLogo from "./MainLogo";
 
 export default MainLogo;

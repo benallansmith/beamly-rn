@@ -4,9 +4,9 @@ import MainLogo from "@components/MainLogo";
 import ThemeToggle from "@components/ThemeToggle";
 import { useTheme } from "@contexts/ThemeContext";
 
-export const Header = () => {
+const Header = () => {
   const { isDarkMode } = useTheme();
-  const borderColor = isDarkMode ? "border-gray-700" : "border-gray-300";
+  const borderColor = isDarkMode ? "border-zinc-700" : "border-zinc-300";
 
   return (
     <View className={`border-b ${borderColor} h-20 flex-row justify-between items-center`}>
@@ -19,3 +19,5 @@ export const Header = () => {
     </View>
   );
 };
+
+export default Header;

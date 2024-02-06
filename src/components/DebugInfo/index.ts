@@ -1,3 +1,3 @@
-import { DebugInfo } from "./DebugInfo";
+import DebugInfo from "./DebugInfo";
 
 export default DebugInfo;

@@ -1,3 +1,3 @@
-import { MusicControls } from "./MusicControls";
+import MusicControls from "./MusicControls";
 
 export default MusicControls;

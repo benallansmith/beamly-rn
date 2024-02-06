@@ -27,7 +27,6 @@ module.exports = {
         }
       }
     ],
-    "nativewind/babel",
-    "react-native-paper/babel"
+    "nativewind/babel"
   ]
 };

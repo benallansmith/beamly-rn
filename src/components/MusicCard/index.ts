@@ -1,3 +1,3 @@
-import { MusicCard } from "./MusicCard";
+import MusicCard from "./MusicCard";
 
 export default MusicCard;
