@@ -13,7 +13,7 @@ const MusicCard = React.memo(({ track }: { track: TrackSummary | null }) => {
   return (
     <View
       style={{ zIndex: 1 }}
-      className={`z-1 p-6 rounded ${isDarkMode ? "bg-zinc-800" : "bg-zinc-200"}`}>
+      className={`z-1 p-6 rounded-lg ${isDarkMode ? "bg-zinc-800" : "bg-zinc-200"}`}>
       <Text numberOfLines={1} className={`font-bold ${textStyle}`}>
         {title}
       </Text>

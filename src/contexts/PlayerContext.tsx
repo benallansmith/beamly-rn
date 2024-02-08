@@ -4,6 +4,7 @@ import { Genre, PlaylistSummary, TrackSummary } from "../types/audius";
 import { fetchAudiusPlaylists, fetchAudiusPlaylistTracks, getAudiusHost } from "../utils/audius";
 import { Sound } from "expo-av/build/Audio/Sound";
 import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from "expo-av";
+import _ from "lodash";
 
 export type PlayerContextType = {
   host: string;
@@ -77,7 +78,7 @@ export const PlayerProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isPaused, setIsPaused] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   const [trackLength, setTrackLength] = useState(0);
   const [trackPosition, setTrackPosition] = useState(0);
@@ -234,8 +235,14 @@ export const usePlayer = () => {
         }
       }
 
-      // if (status.didJustFinish) {
-      // Change track to next track if !isPaused
+      // if (status?.isBuffering) {
+      //
+      // }
+
+      // @ts-ignore
+      if (status?.didJustFinish) {
+        nextTrack();
+      }
     });
 
     setSound(audioObject.sound);
@@ -244,10 +251,15 @@ export const usePlayer = () => {
   const setPosition = async (percentage: number) => {
     if (percentage < 0 || percentage > 100 || !isLoaded) return;
 
-    const position = (percentage / 100) * trackLength;
-    console.log("setPosition", position);
-    // if (sound) await sound.setPositionAsync(position);
+    const position = Math.floor((percentage / 100) * trackLength);
+    console.log("Setting position to", position);
+    if (sound) await sound.setPositionAsync(position);
   };
+
+  const debouncedSetPosition = _.debounce(setPosition, 250, {
+    leading: true,
+    trailing: false
+  });
 
   // Play audio
   const play = async () => {
@@ -299,7 +311,7 @@ export const usePlayer = () => {
     isLoaded,
     isPlaying,
     sliderValue,
-    setPosition,
+    debouncedSetPosition,
     play,
     pause,
     nextTrack,

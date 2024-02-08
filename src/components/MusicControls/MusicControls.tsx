@@ -13,6 +13,30 @@ const nextButton =
 const prevButton =
   "M6.85355 3.85355C7.04882 3.65829 7.04882 3.34171 6.85355 3.14645C6.65829 2.95118 6.34171 2.95118 6.14645 3.14645L2.14645 7.14645C1.95118 7.34171 1.95118 7.65829 2.14645 7.85355L6.14645 11.8536C6.34171 12.0488 6.65829 12.0488 6.85355 11.8536C7.04882 11.6583 7.04882 11.3417 6.85355 11.1464L3.20711 7.5L6.85355 3.85355ZM12.8536 3.85355C13.0488 3.65829 13.0488 3.34171 12.8536 3.14645C12.6583 2.95118 12.3417 2.95118 12.1464 3.14645L8.14645 7.14645C7.95118 7.34171 7.95118 7.65829 8.14645 7.85355L12.1464 11.8536C12.3417 12.0488 12.6583 12.0488 12.8536 11.8536C13.0488 11.6583 13.0488 11.3417 12.8536 11.1464L9.20711 7.5L12.8536 3.85355Z";
 
+const MusicControl = ({
+  onPress,
+  isLoaded,
+  draw
+}: {
+  onPress: () => void;
+  isLoaded: boolean;
+  draw: string;
+}) => {
+  const { isDarkMode } = useTheme();
+  return (
+    <TouchableOpacity disabled={!isLoaded} onPress={onPress}>
+      <Svg width="25" height="25" viewBox="0 0 15 15" fill="none">
+        <Path
+          d={draw}
+          fill={isDarkMode ? "white" : "black"}
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+      </Svg>
+    </TouchableOpacity>
+  );
+};
+
 const MusicControls = ({
   play,
   pause,
@@ -20,7 +44,8 @@ const MusicControls = ({
   nextTrack,
   isPlaying,
   isLoaded,
-  sliderValue
+  sliderValue,
+  setPosition
 }: {
   play: () => void;
   pause: () => void;
@@ -29,6 +54,7 @@ const MusicControls = ({
   isPlaying: boolean;
   isLoaded: boolean;
   sliderValue: number;
+  setPosition: (position: number) => void;
 }) => {
   const { isDarkMode } = useTheme();
   const sliderMinTrackColor = isDarkMode ? "#FAFAF9" : "#3C3A39";
@@ -40,50 +66,13 @@ const MusicControls = ({
         className={`flex-row justify-between items-center mt-8 p-2 ${
           isLoaded ? "" : "opacity-50"
         }`}>
-        <TouchableOpacity disabled={!isLoaded} onPress={() => prevTrack()}>
-          <Svg width="25" height="25" viewBox="0 0 15 15" fill="none">
-            <Path
-              d={prevButton}
-              fill={isDarkMode ? "white" : "black"}
-              fillRule="evenodd"
-              clipRule="evenodd"
-            />
-          </Svg>
-        </TouchableOpacity>
+        <MusicControl isLoaded={isLoaded} onPress={() => prevTrack()} draw={prevButton} />
         {isPlaying ? (
-          <TouchableOpacity disabled={!isLoaded} onPress={() => pause()}>
-            <Svg width="25" height="25" viewBox="0 0 15 15" fill="none">
-              <Path
-                d={pauseButton}
-                fill={isDarkMode ? "white" : "black"}
-                fillRule="evenodd"
-                clipRule="evenodd"
-              />
-            </Svg>{" "}
-          </TouchableOpacity>
+          <MusicControl isLoaded={isLoaded} onPress={() => pause()} draw={pauseButton} />
         ) : (
-          <TouchableOpacity disabled={!isLoaded} onPress={() => play()}>
-            <Svg width="25" height="25" viewBox="0 0 15 15" fill="none">
-              <Path
-                d={playButton}
-                fill={isDarkMode ? "white" : "black"}
-                fillRule="evenodd"
-                clipRule="evenodd"
-              />
-            </Svg>
-          </TouchableOpacity>
+          <MusicControl isLoaded={isLoaded} onPress={() => play()} draw={playButton} />
         )}
-
-        <TouchableOpacity disabled={!isLoaded} onPress={() => nextTrack()}>
-          <Svg width="25" height="25" viewBox="0 0 15 15" fill="none">
-            <Path
-              d={nextButton}
-              fill={isDarkMode ? "white" : "black"}
-              fillRule="evenodd"
-              clipRule="evenodd"
-            />
-          </Svg>
-        </TouchableOpacity>
+        <MusicControl isLoaded={isLoaded} onPress={() => nextTrack()} draw={nextButton} />
       </View>
 
       <Slider
@@ -92,9 +81,11 @@ const MusicControls = ({
         maximumValue={100}
         step={0.1}
         value={sliderValue}
-        onValueChange={(value) => console.log(value)}
+        onSlidingComplete={(value) => setPosition(value)}
         minimumTrackTintColor={sliderMinTrackColor}
         maximumTrackTintColor={sliderMaxTrackColor}
+        tapToSeek
+        thumbTintColor={!isDarkMode ? "#FAFAF9" : "#3C3A39"}
       />
     </>
   );

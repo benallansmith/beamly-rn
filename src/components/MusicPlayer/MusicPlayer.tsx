@@ -19,11 +19,12 @@ const MusicPlayer = () => {
     isLoaded,
     sliderValue,
     selectedGenre,
-    setSelectedGenre
+    setSelectedGenre,
+    debouncedSetPosition
   } = player;
 
   const containerStyle = isDarkMode ? "bg-zinc-900" : "bg-white";
-  const borderColor = isDarkMode ? "border-slate-700" : "border-slate-300";
+  const borderColor = isDarkMode ? "border-zinc-700" : "border-zinc-300";
 
   return (
     <View className="pt-12">
@@ -42,6 +43,7 @@ const MusicPlayer = () => {
           isPlaying={isPlaying}
           isLoaded={isLoaded}
           sliderValue={sliderValue}
+          setPosition={debouncedSetPosition}
         />
         <DebugInfo player={player} />
       </View>
