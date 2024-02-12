@@ -309,7 +309,7 @@ export const usePlayer = () => {
     track,
     setTrack,
     isLoaded,
-    isPlaying,
+    isPaused,
     sliderValue,
     debouncedSetPosition,
     play,

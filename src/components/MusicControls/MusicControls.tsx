@@ -42,7 +42,7 @@ const MusicControls = ({
   pause,
   prevTrack,
   nextTrack,
-  isPlaying,
+  isPaused,
   isLoaded,
   sliderValue,
   setPosition
@@ -51,7 +51,7 @@ const MusicControls = ({
   pause: () => void;
   prevTrack: () => void;
   nextTrack: () => void;
-  isPlaying: boolean;
+  isPaused: boolean;
   isLoaded: boolean;
   sliderValue: number;
   setPosition: (position: number) => void;
@@ -67,7 +67,7 @@ const MusicControls = ({
           isLoaded ? "" : "opacity-50"
         }`}>
         <MusicControl isLoaded={isLoaded} onPress={() => prevTrack()} draw={prevButton} />
-        {isPlaying ? (
+        {isPaused ? (
           <MusicControl isLoaded={isLoaded} onPress={() => pause()} draw={pauseButton} />
         ) : (
           <MusicControl isLoaded={isLoaded} onPress={() => play()} draw={playButton} />

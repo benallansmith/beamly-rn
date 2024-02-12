@@ -15,7 +15,7 @@ const MusicPlayer = () => {
     pause,
     prevTrack,
     nextTrack,
-    isPlaying,
+    isPaused,
     isLoaded,
     sliderValue,
     selectedGenre,
@@ -40,7 +40,7 @@ const MusicPlayer = () => {
           pause={pause}
           prevTrack={prevTrack}
           nextTrack={nextTrack}
-          isPlaying={isPlaying}
+          isPaused={isPaused}
           isLoaded={isLoaded}
           sliderValue={sliderValue}
           setPosition={debouncedSetPosition}
